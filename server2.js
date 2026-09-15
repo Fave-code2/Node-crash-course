@@ -1,4 +1,5 @@
 import { createServer } from "http";
+import fs from "fs/promises";
 const PORT = process.env.PORT;
 
 const users = [
@@ -11,7 +12,9 @@ const users = [
 
 //Logger middleware
 
-const logger = (req, res, next) => {
+const logger = async (req, res, next) => {
+  await fs.writeFile("./test.txt", JSON.stringify(users));
+  console.log("File written to...");
   console.log(req.method, req.url);
   next();
 };
